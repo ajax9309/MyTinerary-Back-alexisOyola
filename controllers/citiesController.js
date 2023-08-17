@@ -9,8 +9,8 @@ const citiesController={
         })
     },
     getOneCities:(request,response,next)=>{
-        console.log(request.params);
-        const city=cities.find(city=>city.Country==request.params.Country)
+        //console.log(request.params);
+        const city=cities.find(city=>city.City==request.params.City)
         response.json({
             response:city,
             success:true,
