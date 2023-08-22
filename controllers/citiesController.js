@@ -4,38 +4,70 @@ import City from "../models/City.js"
 
 
 const citiesController={
-    getAllCities:(request,response,next)=>{
+    getAllCities: async(request,response,next)=>{
+        let cities;
+        let error=null;
+        let success=true;
+        try {
+            cities=await City.find()
+            console.log(cities);
+        } catch (err) {
+            console.log(err);
+            success=false
+            error=err
+        }
+        
         response.json({
             response:cities,
-            success:true,
-            error:null
+            success,
+            error
         })
     },
-    getOneCities:(request,response,next)=>{
+    getOneCities:async(request,response,next)=>{
         //console.log(request.params);
-        const city=cities.find(city=>city.City==request.params.City)
+        const {id} = request.params
+
+        let cities;
+        let error=null;
+        let success=true;
+        try {
+            cities=await City.findOne({_id:id})
+            console.log(cities);
+        } catch (err) {
+            console.log(err);
+            success=false
+            error=err
+        }
+        
         response.json({
-            response:city,
-            success:true,
-            error:null
+            response:cities,
+            success,
+            error
         })
     },
 
     createOneCity:async (request,response,next)=>{
         // console.log(request.body);
+        let city;
+        let error=null;
+        let success=true;
         try {
-           await City.create(request.body)
-            console.log(City);
+
+           city= await City.create(request.body)
+            //console.log(city);
             
-        } catch (error) {
-            console.log(error);
+        } catch (err) {
+            console.log(err);
+            success=false
+            error=err
         }
          
 
         response.json({
             // response:city,
-            success:true,
-            error:null
+            response:city,
+            success,
+            error
         })
     },
 

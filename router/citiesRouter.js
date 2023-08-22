@@ -4,6 +4,6 @@ const citiesRouter=Router()
 const {getAllCities,getOneCities,createOneCity}=citiesController
 
 citiesRouter.get("/", getAllCities)
-citiesRouter.get("/:City", getOneCities)
+citiesRouter.get("/:id", getOneCities)
 citiesRouter.post("/", createOneCity)
 export default citiesRouter
