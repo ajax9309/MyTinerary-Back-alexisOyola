@@ -14,7 +14,7 @@ const citiesController={
         } catch (err) {
             console.log(err);
             success=false
-            error=err
+            next(err)
         }
         
         response.json({
@@ -36,7 +36,7 @@ const citiesController={
         } catch (err) {
             console.log(err);
             success=false
-            error=err
+            next(err)
         }
         
         response.json({
@@ -59,7 +59,7 @@ const citiesController={
         } catch (err) {
             console.log(err);
             success=false
-            error=err
+            next(err)
         }
          
 
@@ -70,6 +70,52 @@ const citiesController={
             error
         })
     },
+
+    updateOneCity:async(request,response,next)=>{
+        const {id} = request.params
+        let city;
+        let error=null;
+        let success=true;
+        // console.log(request.body);
+        try {
+           city= await City.findOneAndUpdate({_id:id},request.body,{new:true})
+        } catch (err) {
+            console.log(err);
+            success=false
+            next(err)
+        }
+        
+        
+        response.json({
+    
+            response:city,
+            success,
+            error
+        })
+    },
+
+    deleteOneCity:async(request,response,next)=>{
+        const {id} = request.params
+        let city;
+        let error=null;
+        let success=true;
+        // console.log(request.body);
+        try {
+           city= await City.findOneAndDelete({_id:id})
+        } catch (err) {
+            console.log(err);
+            success=false
+            next(err)
+        }
+        
+        
+        response.json({
+    
+            response:city,
+            success,
+            error
+        })
+    }
 
 }
 
