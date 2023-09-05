@@ -1,5 +1,3 @@
-import { response } from "express"
-import cities from "../cities.js"
 import City from "../models/City.js"
 
 
