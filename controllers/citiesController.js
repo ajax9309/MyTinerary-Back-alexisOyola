@@ -3,24 +3,22 @@ import City from "../models/City.js"
 
 const citiesController={
     getAllCities: async(request,response,next)=>{
-        let cities;
-        let error=null;
-        let success=true;
-        try {
-            cities=await City.find()
-            console.log(cities);
-        } catch (err) {
-            console.log(err);
-            success=false
-            next(err)
+        let{name, city}=request.query
+        let query={}
+        if(name){
+            query.name={$regex: name.trim(),$options:"i"}
         }
-        
-        response.json({
-            response:cities,
-            success,
-            error
-        })
+        try {
+           const cities=await City.find(query).populate({
+            path: "tinerary",
+            select:"tinerary price duration image -_id"
+           })
+            response.status(200).json({status:200,success:true,response:cities})
+        } catch (err) {
+            response.status(500).json({warning: console.log(err)})
+        }
     },
+
     getOneCities:async(request,response,next)=>{
         //console.log(request.params);
         const {id} = request.params
@@ -29,8 +27,11 @@ const citiesController={
         let error=null;
         let success=true;
         try {
-            cities=await City.findOne({_id:id})
-            console.log(cities);
+            cities=await City.findOne({_id:id}).populate({
+                path: "tinerary",
+                select:"tinerary price duration image -_id"
+            })
+            // console.log(cities);
         } catch (err) {
             console.log(err);
             success=false
@@ -100,6 +101,7 @@ const citiesController={
         // console.log(request.body);
         try {
            city= await City.findOneAndDelete({_id:id})
+           response.json({info: "item deleted"})
         } catch (err) {
             console.log(err);
             success=false
@@ -109,7 +111,6 @@ const citiesController={
         
         response.json({
     
-            response:city,
             success,
             error
         })
