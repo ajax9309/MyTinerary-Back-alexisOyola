@@ -11,7 +11,7 @@ const complexityOptions = {
   requirementCount: 2,
 };
 
-export const singInSchema = joi.object({
+export const signInSchema = joi.object({
 
   email: joi.string().email().required().messages({
     "string.empty":"incorrect email or password",

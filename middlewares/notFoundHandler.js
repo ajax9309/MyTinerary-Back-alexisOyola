@@ -1,6 +1,6 @@
 import createError from "http-errors"
 
-const notFoundHandler =(next)=>{
+const notFoundHandler =(req,res,next)=>{
     next(createError(404,"Page not found"))
 }
 
