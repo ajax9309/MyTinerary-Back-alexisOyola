@@ -3,7 +3,7 @@ import joiPassword from 'joi-password-complexity';
 
 const complexityOptions = {
   min: 6,
-  max: 12,
+  max: 32,
   lowerCase: 1,
   upperCase: 1,
   numeric: 0,
@@ -20,6 +20,6 @@ export const signInSchema = joi.object({
     "string.empty":"incorrect email or password ",
   }),
 
-  picture: joi.string().uri()
+  // picture: joi.string().uri()
 
 })

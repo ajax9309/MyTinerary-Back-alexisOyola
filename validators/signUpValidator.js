@@ -22,6 +22,6 @@ export const signUpSchema = joi.object({
   username: joi.string().min(4).max(32),
   picture: joi.string().uri().allow("").allow(null),
   country: joi.string().allow("").allow(null),
-  birthdate: joi.date(),
-  cellphone: joi.number()
+  birthdate: joi.date().allow(null),
+  cellphone: joi.number().allow(null)
 }) 
